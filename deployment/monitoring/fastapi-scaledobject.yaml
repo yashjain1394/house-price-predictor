@@ -5,6 +5,8 @@ metadata:
  namespace: default
 spec:
  scaleTargetRef:
+  apiVersion: apps/v1
+  kind: Deployment
   name: model # update to your actual deployment name
  minReplicaCount: 1
  maxReplicaCount: 5
@@ -24,3 +26,7 @@ spec:
      metricName: request_rate
      query: sum(rate(http_requests_total[1m]))
      threshold: "1000"
+  - type: cpu
+    metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
+    metadata:
+     value: "50"
